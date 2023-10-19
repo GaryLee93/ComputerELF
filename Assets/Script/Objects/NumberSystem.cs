@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using TMPro;
 
-public class NumberSystem : Singleton<NumberSystem>
+public class NumberSystem : MonoBehaviour
 {
 #region Bits
     [SerializeField] private Switch sw;
@@ -21,33 +21,22 @@ public class NumberSystem : Singleton<NumberSystem>
     {
         if(checkAnswer())
         {
-            resetBits();
             StageManager.I.correct();
             GenerateNum();
         }
-        /*
-        if(sw.Activited)
-        {
-            checkAnswer();
-            timer.setWaitTime(0.3f);
-        }
-        if(sw.Enable&&timer.CanTurnOff)
-        {
-            GenerateNum();
-            sw.TrunOff();
-        }
-        */
     }
 #endregion
 
 #region Number
+    [SerializeField] GameObject numText;
     private int limit = 1; 
-    private int number = 0;
+    private int number = -1;
     public void GenerateNum()
     {
+        resetBits();
         limit = 1<<(bits.Count);
         number = UnityEngine.Random.Range(0,limit);
-        StageManager.I.NumberAppear(number);
+        numText.GetComponent<TextMeshProUGUI>().text = number.ToString();
         Debug.Log(number);
     }
     private bool checkAnswer()
@@ -57,7 +46,7 @@ public class NumberSystem : Singleton<NumberSystem>
             ans += bits[i].bit()==1? "1":"0";
         if(number == Convert.ToInt32(ans,2))
         {
-            
+            number = -1;
             return true;
         }
         else 

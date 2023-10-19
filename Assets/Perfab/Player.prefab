@@ -130,7 +130,7 @@ MonoBehaviour:
   rb: {fileID: 8497455887367152339}
   tf: {fileID: 820227538808612614}
   groundedChecker: {fileID: 4384595784940781617}
-  maxHoriSpeed: 8
+  maxHoriSpeed: 12
   runAccelertion: 60
   runDeccelertion: 60
   gravity: 50
